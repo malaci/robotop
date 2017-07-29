@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+  <title>Optimize real estate investment allocation | RobotOpinion
+  </title>
+
+  <!-- CSS  -->
+  <link href="//fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="css/zwickau.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+
+
+  <script src="//maps.google.com/maps/api/js?v=3&amp;libraries=visualization&key=AIzaSyDgeWFx_kGWHDEtYu6GI1Mtqfne7EBegvE"
+          type="text/javascript"></script>
+  <script type="text/javascript" src="//apis.google.com/js/client.js?key=AIzaSyDgeWFx_kGWHDEtYu6GI1Mtqfne7EBegvE"></script>
+  <script src="//unpkg.com/vue"></script>
+  <script type="text/javascript" src="//code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script type="text/javascript" src="js/materialize.js"></script>
+  <script type="text/javascript" src="js/fusiontips.js"></script>
+</head>
+<body>
+  <nav class="light-green" role="navigation">
+    <div class="nav-wrapper container"><a id="logo-container" href="/" class="brand-logo"><img class="ro-logo" src="img/logo.png"></a>
+      <ul class="right hide-on-med-and-down">
+        <li><a href="#"><i class="material-icons">menu</i></a></li>
+      </ul>
+
+      <ul id="nav-mobile" class="side-nav">
+        <li><a href="#">Navbar Link</a></li>
+      </ul>
+      <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+    </div>
+  </nav>
+  <div class="section no-pad-bot" id="index-banner">
+    <div class="container" id="app1">
+
+      <div class="section">
+        <div class="row center">
+          <h5 class="header col s12 light">Zwickau</h5>
+        </div>
+      </div>
+      <div id="donate" class="card-content">
+        <input v-on:click="showLayer(0)" class="btn-flat" type="radio" id="rd-bsn" name="radios" value="all" checked>
+        <label for="rd-bsn">Rent Rates</label>
+        <input v-on:click="showLayer(1)" class="btn-flat" type="radio" id="rd-vac" name="radios" value="all">
+        <label for="rd-vac">Registered Businesses</label>
+        <input v-on:click="showLayer(2)" class="btn-flat" type="radio" id="rd-rate" name="radios" value="all">
+        <label for="rd-rate">Vacancies</label>
+        <input v-on:click="showLayer(3)" class="btn-flat" type="radio" id="rd-dyn" name="radios" value="all">
+        <label for="rd-dyn">Vacancy Rates</label>
+      </div>
+
+      <div class="row center map-container">
+        <div class="col s12 m12">
+          <div  id="map-canvas" class="map-canvas "></div>
+          <input id="googft-legend-open" style="display:none" type="button" value="Legend"></input>
+          <div id="googft-legend" class="hide">
+            <p id="googft-legend-title">Rent Rate / m² </p>
+            <div>
+              <img class="googft-paddle-icon" src="http://maps.google.com/mapfiles/ms/micons/green-dot.png"/>
+              <span class="googft-legend-range">€1.5 to €4.5</span>
+            </div>
+            <div>
+              <img class="googft-paddle-icon" src="http://maps.google.com/mapfiles/ms/micons/yellow-dot.png"/>
+              <span class="googft-legend-range">€4.5 to €7.5</span>
+            </div>
+            <div>
+              <img class="googft-paddle-icon" src="http://maps.google.com/mapfiles/ms/micons/red-dot.png"/>
+              <span class="googft-legend-range">€7.5 to €16</span>
+            </div>
+            <input id="googft-legend-close" style="display:none" type="button" value="Hide"></input>
+          </div>
+
+      </div>
+
+    </div>
+  </div>
+
+
+</div>
+
+  <!--footer class="page-footer blue-grey darken-4">
+    <div class="container">
+      <div class="row">
+        <div class="col 12 s12 ">
+          <h5 class="white-text">Company Bio</h5>
+          <p class="grey-text text-lighten-4">Our short-term goal is to collect data on every office building in Europe.</p>
+
+        </div>
+
+      </div>
+    </div>
+    <div class="footer-copyright">
+      <div class="container">
+      .
+      </div>
+    </div>
+  </footer-->
+
+
+  <!--  Scripts-->
+
+
+
+
+  <script src="js/app_zwickau.js"></script>
+  <script src="js/init.js"></script>
+  </body>
+</html>

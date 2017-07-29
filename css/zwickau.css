@@ -1,0 +1,57 @@
+[type="radio"]:checked + label:after, [type="radio"].with-gap:checked + label:after {
+    background-color: #607d8b;
+}
+
+[type="radio"]:checked + label:after, [type="radio"].with-gap:checked + label:before, [type="radio"].with-gap:checked + label:after {
+    border: 2px solid #607d8b;
+}
+.map-canvas{
+    ---max-width: 1000px;
+    height: 600px;
+}
+
+#googft-legend{
+    background-color:#fff;
+    border:1px solid #000;
+    font-family:Arial,sans-serif;
+    font-size:12px;
+    margin:5px;
+    padding:10px 10px 8px;
+    text-align: left;
+}
+#googft-legend p{
+    font-weight:bold;
+    margin-top:0
+}
+#googft-legend div{
+    margin-bottom:5px
+}
+.googft-legend-swatch{
+    border:1px solid;
+    float:left;
+    height:12px;
+    margin-right:8px;
+    width:20px
+}
+.googft-legend-range{
+    margin-left:0
+}
+.googft-dot-icon{
+    margin-right:8px
+}
+.googft-paddle-icon{
+    height:24px;
+    left:-8px;
+    margin-right:-8px;
+    position:relative;
+    vertical-align:middle;
+    width:24px
+}
+.googft-legend-source{
+    margin-bottom:0;
+    margin-top:8px
+}
+.googft-legend-source a{
+    color:#666;
+    font-size:11px
+}
