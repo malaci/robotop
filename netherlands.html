@@ -128,26 +128,44 @@
           <div  id="map-canvas" class="map-canvas "></div>
           <input id="googft-legend-open" style="display:none" type="button" value="Legend"></input>
           <div id="googft-legend">
-            <p id="googft-legend-title">average-price</p>
+            <p id="googft-legend-title">Rent Rate €/m²</p>
             <div>
               <span class="googft-legend-swatch" style="background-color: #00ff00"></span>
-              <span class="googft-legend-range">3.5</span>
+              <span class="googft-legend-range">< 9.8€</span>
             </div>
             <div>
               <span class="googft-legend-swatch" style="background-color: #ffff00"></span>
+              <span class="googft-legend-range">9.8€-12.1€</span>
               <br/>
             </div>
             <div>
               <span class="googft-legend-swatch" style="background-color: #ff9900"></span>
+              <span class="googft-legend-range">12.1€-16€</span>
               <br/>
             </div>
             <div>
               <span class="googft-legend-swatch" style="background-color: #ff0000"></span>
-              <span class="googft-legend-range">33.5</span>
+              <span class="googft-legend-range">16€-40€</span>
             </div>
             <input id="googft-legend-close" style="display:none" type="button" value="Hide"></input>
           </div>
-
+          <input id="googft-legend-open-price" style="display:none" type="button" value="Legend"></input>
+          <div id="googft-legend-price" class="hide">
+            <p id="googft-legend-title-price">Rent Rate / m² </p>
+            <div>
+              <img class="googft-paddle-icon" src="http://maps.google.com/mapfiles/ms/micons/green-dot.png"/>
+              <span class="googft-legend-range">€1 to €11</span>
+            </div>
+            <div>
+              <img class="googft-paddle-icon" src="http://maps.google.com/mapfiles/ms/micons/yellow-dot.png"/>
+              <span class="googft-legend-range">€11 to €16</span>
+            </div>
+            <div>
+              <img class="googft-paddle-icon" src="http://maps.google.com/mapfiles/ms/micons/red-dot.png"/>
+              <span class="googft-legend-range">€16 to €35</span>
+            </div>
+            <input id="googft-legend-close-price" style="display:none" type="button" value="Hide"></input>
+          </div>
       </div>
 
     </div>

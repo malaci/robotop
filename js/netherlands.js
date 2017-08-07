@@ -18,7 +18,8 @@ var app = new Vue({
 		googleApiKey : 'AIzaSyDgeWFx_kGWHDEtYu6GI1Mtqfne7EBegvE',
 		tables : ["1LPZq3-Ln6I9eXoiVJanOpktJfBFonogRQeRSiezV",
 		          "1ISzdfO_jC5DJCWw18xctkDuOKNOwzo6RWIdLSjp2",
-		          "1xpYXatNhvjsqLUnq87Vhi4FPh77qoX7sL-9BwMX8"]
+		          "1xpYXatNhvjsqLUnq87Vhi4FPh77qoX7sL-9BwMX8",
+		          "13aVcI4jpSZDnnsATPDuKClA4dKjaWy4lbH7Q-0AZ"]
 	},
 	methods: {
 		getColor : function (l) {
@@ -71,13 +72,19 @@ var app = new Vue({
 			}
 		},
 		showLayer : function (id){
+			var zoomLevel = this.map.getZoom();
+			if(id ===0 && zoomLevel >=14){
+				id = 3;
+			}
 			for(var i = 0; i < this.layers.length; i++) {
 				this.layers[i].setMap(null);
 			}
-
+			//this.layers[id].map =  this.map;
+			this.layers[id].setMap(this.map);
+			$( "#googft-legend-price" ).addClass( "hide" );
 			if(id===0){
 				$( "#googft-legend" ).removeClass( "hide" );
-				this.layers[id].map =  this.map;
+
 				//this.layers[id].enableMapTips({
 				//	select: "'address','price'",
 				//	from: this.tables[0],
@@ -96,8 +103,41 @@ var app = new Vue({
 				//});
 			}else{
 				$( "#googft-legend" ).addClass( "hide" );
+
+				if(id===3){
+
+					$( "#googft-legend-price" ).removeClass( "hide" );
+					this.layers[id].map =  this.map;
+					this.layers[id].enableMapTips({
+						select: "'address','price'",
+						from: this.tables[3],
+						geometryColumn: 'location', // geometry column name
+						suppressMapTips: false,
+						delay: 100,
+						tolerance: 25,
+						style: "text-align: left;",
+						googleApiKey: this.googleApiKey,
+						htmlTemplate: function(rows) {
+							return '<div style="text-align: left;"><h6>Address: </h6>' + rows[0][0] + '<br><h6>Rent Rate / m² : </h6>€'+rows[0][1] + '</div>';
+						}
+					});
+					google.maps.event.addListener(this.layers[id], 'click', function(fEvent) {
+						var row = fEvent.row;
+					});
+
+				}
 			}
-			this.layers[id].setMap(this.map);
+
+		},
+		onZoom : function (){
+			if($("#rd-bsn").prop("checked")==true){
+				var zoomLevel = this.map.getZoom();
+				if (zoomLevel >= 14) {
+					this.showLayer(3);
+				} else {
+					this.showLayer(0);
+				}
+			}
 		},
 		showMap: function (center,search){
 			var that = this;
@@ -109,6 +149,7 @@ var app = new Vue({
 				};
 				//gapi.client.setApiKey(this.googleApiKey);
 				that.map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+				google.maps.event.addListener(that.map, 'zoom_changed', that.onZoom);
 			} else {
 				if(that.circle){
 					that.circle.setMap(null);
@@ -118,11 +159,11 @@ var app = new Vue({
 				}
 				if(center){
 					that.map.panTo(new google.maps.LatLng(center[0], center[1]));
-					that.map.setZoom(12);
+					that.map.setZoom(14);
 					that.circle = new google.maps.Circle({
 						strokeColor: that.getColor(that.level),
-						strokeOpacity: 0.5,
-						strokeWeight: 1,
+						strokeOpacity: 0,
+						strokeWeight: 2,
 						fillColor: that.getColor(that.level),
 						fillOpacity: 0.35,
 						map: that.map,
@@ -140,7 +181,7 @@ var app = new Vue({
 						that.map.setZoom(10);
 				}
 				$("#rd-bsn").prop("checked", true);
-				that.showLayer(0);
+				that.showLayer(3);
 			}
 
 
@@ -148,11 +189,12 @@ var app = new Vue({
 		},
 		getLayer : function(table_id,index,callback) {
 
-            var that = this;
+            var that = this,
+			    layer;
 			if(index ===0 ){
 				this.map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(document.getElementById('googft-legend-open'));
 				this.map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(document.getElementById('googft-legend'));
-				var layer = new google.maps.FusionTablesLayer({
+				layer = new google.maps.FusionTablesLayer({
 					query: {
 						select: "col2\x3e\x3e1",
 						from: table_id,
@@ -172,8 +214,11 @@ var app = new Vue({
 
 				callback(0,layer);
 			} else {
-
-				var layer = new google.maps.FusionTablesLayer({
+				if(index===3){
+					this.map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(document.getElementById('googft-legend-open-price'));
+					this.map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(document.getElementById('googft-legend-price'));
+				}
+				layer = new google.maps.FusionTablesLayer({
 					query: {
 						select: "location",
 						from: table_id
@@ -183,6 +228,7 @@ var app = new Vue({
 						enabled: index == 1,
 						radius: 25
 					},
+					suppressInfoWindows: index==3,
 					//map : that.map,
 					options: {
 						styleId: 2,
@@ -190,6 +236,7 @@ var app = new Vue({
 					}
 
 				});
+
 				callback(index,layer);
 			}
 		},
