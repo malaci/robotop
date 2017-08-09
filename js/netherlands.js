@@ -19,6 +19,7 @@ var app = new Vue({
 		tables : ["1LPZq3-Ln6I9eXoiVJanOpktJfBFonogRQeRSiezV",
 		          "1ISzdfO_jC5DJCWw18xctkDuOKNOwzo6RWIdLSjp2",
 		          "1xpYXatNhvjsqLUnq87Vhi4FPh77qoX7sL-9BwMX8",
+				  "1l0vGeV9kG-aa-U6rtrt8ua2mGIdUCj1LdQU0ZGOC",
 		          "13aVcI4jpSZDnnsATPDuKClA4dKjaWy4lbH7Q-0AZ"]
 	},
 	methods: {
@@ -59,6 +60,7 @@ var app = new Vue({
 		onInit : function(){
 			this.showMap(this.map_center,false);
 			this.loadLayers();
+
 		},
 		loadLayers : function() {
 			var	that = this	;
@@ -74,43 +76,43 @@ var app = new Vue({
 		showLayer : function (id){
 			var zoomLevel = this.map.getZoom();
 			if(id ===0 && zoomLevel >=14){
-				id = 3;
+				id = 4;
 			}
+
 			for(var i = 0; i < this.layers.length; i++) {
 				this.layers[i].setMap(null);
 			}
+			if(id ==1 ){
+				if(zoomLevel >=12  ){
+					this.layers[id].setOptions({heatmap: {enabled : false}});
+				}else{
+					this.layers[id].setOptions({heatmap: {enabled : true}});
+				}
+			}
+			if( id==2){
+				if(zoomLevel >=12  ){
+					this.layers[id].setOptions({heatmap: {enabled : false}});
+				}else{
+					this.layers[id].setOptions({heatmap: {enabled : true,radius: 50}});
+				}
+			}
+
 			//this.layers[id].map =  this.map;
 			this.layers[id].setMap(this.map);
 			$( "#googft-legend-price" ).addClass( "hide" );
 			if(id===0){
 				$( "#googft-legend" ).removeClass( "hide" );
 
-				//this.layers[id].enableMapTips({
-				//	select: "'address','price'",
-				//	from: this.tables[0],
-				//	geometryColumn: 'location', // geometry column name
-				//	suppressMapTips: false,
-				//	delay: 100,
-				//	tolerance: 25,
-				//	style: "text-align: left;",
-				//	googleApiKey: this.googleApiKey,
-				//	htmlTemplate: function(rows) {
-				//		return '<div style="text-align: left;"><h6>Address: </h6>' + rows[0][0] + '<br><h6>Rent Rate / m² : </h6>€'+rows[0][1] + '</div>';
-				//	}
-				//});
-				//google.maps.event.addListener(this.layers[id], 'click', function(fEvent) {
-				//	var row = fEvent.row;
-				//});
 			}else{
 				$( "#googft-legend" ).addClass( "hide" );
 
-				if(id===3){
+				if(id===4){
 
 					$( "#googft-legend-price" ).removeClass( "hide" );
 					this.layers[id].map =  this.map;
 					this.layers[id].enableMapTips({
 						select: "'address','price'",
-						from: this.tables[3],
+						from: this.tables[4],
 						geometryColumn: 'location', // geometry column name
 						suppressMapTips: false,
 						delay: 100,
@@ -130,14 +132,30 @@ var app = new Vue({
 
 		},
 		onZoom : function (){
+			var zoomLevel = this.map.getZoom();
 			if($("#rd-bsn").prop("checked")==true){
-				var zoomLevel = this.map.getZoom();
-				if (zoomLevel >= 14) {
-					this.showLayer(3);
+				if (zoomLevel >= 12) {
+					this.showLayer(4);
 				} else {
 					this.showLayer(0);
 				}
 			}
+			if($("#rd-vac").prop("checked")==true){
+					this.showLayer(1);
+			}
+			if($("#rd-rate").prop("checked")==true){
+					this.showLayer(2);
+			}
+		},
+		pinSymbol: function (color) {
+			return {
+				path: 'M 0,0 C -2,-20 -10,-22 -10,-30 A 10,10 0 1,1 10,-30 C 10,-22 2,-20 0,0 z M -2,-30 a 2,2 0 1,1 4,0 2,2 0 1,1 -4,0',
+				fillColor: color,
+				fillOpacity: 1,
+				strokeColor: '#000',
+				strokeWeight: 2,
+				scale: 1,
+			};
 		},
 		showMap: function (center,search){
 			var that = this;
@@ -174,6 +192,8 @@ var app = new Vue({
 					that.marker = new google.maps.Marker({
 						position: new google.maps.LatLng(center[0], center[1]),
 						map: that.map,
+						//icon: 'http://google.com/mapfiles/kml/paddle/wht-stars.png',
+						icon:that.pinSymbol("#FFF"),
 						title: ''     });
 
 				} else {
@@ -181,7 +201,7 @@ var app = new Vue({
 						that.map.setZoom(10);
 				}
 				$("#rd-bsn").prop("checked", true);
-				that.showLayer(3);
+				//that.showLayer(4);
 			}
 
 
@@ -214,7 +234,7 @@ var app = new Vue({
 
 				callback(0,layer);
 			} else {
-				if(index===3){
+				if(index===4){
 					this.map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(document.getElementById('googft-legend-open-price'));
 					this.map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(document.getElementById('googft-legend-price'));
 				}
@@ -225,10 +245,10 @@ var app = new Vue({
 					},
 					//suppressInfoWindows: true,
 					heatmap: {
-						enabled: index == 1,
+						enabled: index == 1 || index ==2,
 						radius: 25
 					},
-					suppressInfoWindows: index==3,
+					suppressInfoWindows: index==4,
 					//map : that.map,
 					options: {
 						styleId: 2,
