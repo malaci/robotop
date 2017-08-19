@@ -83,14 +83,14 @@ var app = new Vue({
 				this.layers[i].setMap(null);
 			}
 			if(id ==1 ){
-				if(zoomLevel >=12  ){
+				if(zoomLevel >=14  ){
 					this.layers[id].setOptions({heatmap: {enabled : false}});
 				}else{
 					this.layers[id].setOptions({heatmap: {enabled : true}});
 				}
 			}
 			if( id==2){
-				if(zoomLevel >=12  ){
+				if(zoomLevel >=11  ){
 					this.layers[id].setOptions({heatmap: {enabled : false}});
 				}else{
 					this.layers[id].setOptions({heatmap: {enabled : true,radius: 50}});
@@ -134,7 +134,7 @@ var app = new Vue({
 		onZoom : function (){
 			var zoomLevel = this.map.getZoom();
 			if($("#rd-bsn").prop("checked")==true){
-				if (zoomLevel >= 12) {
+				if (zoomLevel >= 14) {
 					this.showLayer(4);
 				} else {
 					this.showLayer(0);
