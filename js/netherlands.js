@@ -100,13 +100,14 @@ var app = new Vue({
 
 			//this.layers[id].map =  this.map;
 			this.layers[id].setMap(this.map);
+			$( "#googft-legend" ).addClass( "hide" );
 			$( "#googft-legend-price" ).addClass( "hide" );
 			$( "#googft-legend-change" ).addClass( "hide" );
 			if(id===0){
 				$( "#googft-legend" ).removeClass( "hide" );
 
 			}else{
-				$( "#googft-legend" ).addClass( "hide" );
+
 				if(id==5){
 					$( "#googft-legend-change" ).removeClass( "hide" );
 				};
@@ -133,6 +134,7 @@ var app = new Vue({
 
 				}
 			}
+			google.maps.event.trigger(this.map, 'resize');
 
 		},
 		onZoom : function (){
