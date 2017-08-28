@@ -115,12 +115,15 @@
       <div id="donate" class="card-content">
         <input v-on:click="showLayer(0)" class="btn-flat" type="radio" id="rd-bsn" name="radios" value="all" checked>
         <label for="rd-bsn">Rent Rates</label>
+        <input v-on:click="showLayer(5)" class="btn-flat" type="radio" id="rd-cng" name="radios" value="all">
+        <label for="rd-cng">Rent Rates Change</label>
         <input v-on:click="showLayer(1)" class="btn-flat" type="radio" id="rd-vac" name="radios" value="all">
         <label for="rd-vac">Registered Businesses</label>
         <input v-on:click="showLayer(2)" class="btn-flat" type="radio" id="rd-rate" name="radios" value="all">
         <label for="rd-rate">Vacancies</label>
         <input v-on:click="showLayer(3)" class="btn-flat" type="radio" id="rd-dyn" name="radios" value="all">
         <label for="rd-dyn">Vacancy Rates</label>
+
       </div>
 
       <div class="row center map-container">
@@ -165,6 +168,24 @@
               <span class="googft-legend-range">€16 to €35</span>
             </div>
             <input id="googft-legend-close-price" style="display:none" type="button" value="Hide"></input>
+          </div>
+          <input id="googft-legend-open-change" style="display:none" type="button" value="Legend"></input>
+          <div id="googft-legend-change" class="hide">
+            <p id="googft-legend-title-change">Change Over 2009-2017 </p>
+            <div>
+              <span class="googft-legend-swatch" style="background-color: #00ff00"></span>
+              <span class="googft-legend-range">-24€ to -3€</span>
+            </div>
+            <div>
+              <span class="googft-legend-swatch" style="background-color: #ffff00"></span>
+              <span class="googft-legend-range">-3€ to 3€</span>
+              <br/>
+            </div>
+            <div>
+              <span class="googft-legend-swatch" style="background-color: #ff0000"></span>
+              <span class="googft-legend-range">3€ to 30€</span>
+            </div>
+            <input id="googft-legend-close-change" style="display:none" type="button" value="Hide"></input>
           </div>
       </div>
 

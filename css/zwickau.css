@@ -10,7 +10,7 @@
     height: 600px;
 }
 
-#googft-legend,#googft-legend-price{
+#googft-legend,#googft-legend-price,#googft-legend-change{
     background-color:#fff;
     border:1px solid #000;
     font-family:Arial,sans-serif;
@@ -19,11 +19,11 @@
     padding:10px 10px 8px;
     text-align: left;
 }
-#googft-legend p,#googft-legend-price p{
+#googft-legend p,#googft-legend-price p,#googft-legend-change p{
     font-weight:bold;
     margin-top:0
 }
-#googft-legend div,#googft-legend-price div{
+#googft-legend div,#googft-legend-price div,#googft-legend-change div{
     margin-bottom:5px
 }
 .googft-legend-swatch{

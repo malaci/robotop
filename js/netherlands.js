@@ -20,7 +20,8 @@ var app = new Vue({
 		          "1ISzdfO_jC5DJCWw18xctkDuOKNOwzo6RWIdLSjp2",
 		          "1xpYXatNhvjsqLUnq87Vhi4FPh77qoX7sL-9BwMX8",
 				  "1l0vGeV9kG-aa-U6rtrt8ua2mGIdUCj1LdQU0ZGOC",
-		          "13aVcI4jpSZDnnsATPDuKClA4dKjaWy4lbH7Q-0AZ"]
+		          "13aVcI4jpSZDnnsATPDuKClA4dKjaWy4lbH7Q-0AZ",
+		          "1BBSOQ7nEZuFhZDy9wZkBYsYKtXlZiKG3l4gr8SkY"]
 	},
 	methods: {
 		getColor : function (l) {
@@ -100,12 +101,15 @@ var app = new Vue({
 			//this.layers[id].map =  this.map;
 			this.layers[id].setMap(this.map);
 			$( "#googft-legend-price" ).addClass( "hide" );
+			$( "#googft-legend-change" ).addClass( "hide" );
 			if(id===0){
 				$( "#googft-legend" ).removeClass( "hide" );
 
 			}else{
 				$( "#googft-legend" ).addClass( "hide" );
-
+				if(id==5){
+					$( "#googft-legend-change" ).removeClass( "hide" );
+				};
 				if(id===4){
 
 					$( "#googft-legend-price" ).removeClass( "hide" );
@@ -234,10 +238,15 @@ var app = new Vue({
 
 				callback(0,layer);
 			} else {
+				if(index===5){
+					this.map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(document.getElementById('googft-legend-open-change'));
+					this.map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(document.getElementById('googft-legend-change'));
+				}
 				if(index===4){
 					this.map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(document.getElementById('googft-legend-open-price'));
 					this.map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(document.getElementById('googft-legend-price'));
 				}
+
 				layer = new google.maps.FusionTablesLayer({
 					query: {
 						select: "location",
